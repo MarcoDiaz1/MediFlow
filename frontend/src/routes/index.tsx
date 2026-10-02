@@ -1,0 +1,34 @@
+import { createBrowserRouter, Navigate } from "react-router-dom";
+
+import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard";
+
+import ProtectedRoute from "../components/ProtectedRoute";
+import Layout from "../components/layout/Layout";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/login" replace />,
+  },
+
+  {
+    path: "/login",
+    element: <Login />,
+  },
+
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <Layout />,
+        children: [
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+        ],
+      },
+    ],
+  },
+]);

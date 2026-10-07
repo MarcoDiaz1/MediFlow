@@ -7,6 +7,13 @@ datasource db {
   provider = "postgresql"
 }
 
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   name      String
@@ -23,6 +30,19 @@ model Patient {
   dateOfBirth DateTime?
   phone       String?
   email       String?   @unique
+  appointments Appointment[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+}
+
+model Appointment {
+  id          Int               @id @default(autoincrement())
+  patientId   Int
+  scheduledAt DateTime
+  reason      String?
+  status      AppointmentStatus @default(SCHEDULED)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  patient     Patient           @relation(fields: [patientId], references: [id])
 }

@@ -240,6 +240,7 @@ export type PatientWhereInput = {
   email?: Prisma.StringNullableFilter<"Patient"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Patient"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Patient"> | Date | string
+  appointments?: Prisma.AppointmentListRelationFilter
 }
 
 export type PatientOrderByWithRelationInput = {
@@ -251,6 +252,7 @@ export type PatientOrderByWithRelationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  appointments?: Prisma.AppointmentOrderByRelationAggregateInput
 }
 
 export type PatientWhereUniqueInput = Prisma.AtLeast<{
@@ -265,6 +267,7 @@ export type PatientWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"Patient"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Patient"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Patient"> | Date | string
+  appointments?: Prisma.AppointmentListRelationFilter
 }, "id" | "email">
 
 export type PatientOrderByWithAggregationInput = {
@@ -305,6 +308,7 @@ export type PatientCreateInput = {
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateInput = {
@@ -316,6 +320,7 @@ export type PatientUncheckedCreateInput = {
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUpdateInput = {
@@ -326,6 +331,7 @@ export type PatientUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateInput = {
@@ -337,6 +343,7 @@ export type PatientUncheckedUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateManyInput = {
@@ -412,6 +419,11 @@ export type PatientSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type PatientScalarRelationFilter = {
+  is?: Prisma.PatientWhereInput
+  isNot?: Prisma.PatientWhereInput
+}
+
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
@@ -420,6 +432,107 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type PatientCreateNestedOneWithoutAppointmentsInput = {
+  create?: Prisma.XOR<Prisma.PatientCreateWithoutAppointmentsInput, Prisma.PatientUncheckedCreateWithoutAppointmentsInput>
+  connectOrCreate?: Prisma.PatientCreateOrConnectWithoutAppointmentsInput
+  connect?: Prisma.PatientWhereUniqueInput
+}
+
+export type PatientUpdateOneRequiredWithoutAppointmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.PatientCreateWithoutAppointmentsInput, Prisma.PatientUncheckedCreateWithoutAppointmentsInput>
+  connectOrCreate?: Prisma.PatientCreateOrConnectWithoutAppointmentsInput
+  upsert?: Prisma.PatientUpsertWithoutAppointmentsInput
+  connect?: Prisma.PatientWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PatientUpdateToOneWithWhereWithoutAppointmentsInput, Prisma.PatientUpdateWithoutAppointmentsInput>, Prisma.PatientUncheckedUpdateWithoutAppointmentsInput>
+}
+
+export type PatientCreateWithoutAppointmentsInput = {
+  firstName: string
+  lastName: string
+  dateOfBirth?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PatientUncheckedCreateWithoutAppointmentsInput = {
+  id?: number
+  firstName: string
+  lastName: string
+  dateOfBirth?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PatientCreateOrConnectWithoutAppointmentsInput = {
+  where: Prisma.PatientWhereUniqueInput
+  create: Prisma.XOR<Prisma.PatientCreateWithoutAppointmentsInput, Prisma.PatientUncheckedCreateWithoutAppointmentsInput>
+}
+
+export type PatientUpsertWithoutAppointmentsInput = {
+  update: Prisma.XOR<Prisma.PatientUpdateWithoutAppointmentsInput, Prisma.PatientUncheckedUpdateWithoutAppointmentsInput>
+  create: Prisma.XOR<Prisma.PatientCreateWithoutAppointmentsInput, Prisma.PatientUncheckedCreateWithoutAppointmentsInput>
+  where?: Prisma.PatientWhereInput
+}
+
+export type PatientUpdateToOneWithWhereWithoutAppointmentsInput = {
+  where?: Prisma.PatientWhereInput
+  data: Prisma.XOR<Prisma.PatientUpdateWithoutAppointmentsInput, Prisma.PatientUncheckedUpdateWithoutAppointmentsInput>
+}
+
+export type PatientUpdateWithoutAppointmentsInput = {
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PatientUncheckedUpdateWithoutAppointmentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type PatientCountOutputType
+ */
+
+export type PatientCountOutputType = {
+  appointments: number
+}
+
+export type PatientCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  appointments?: boolean | PatientCountOutputTypeCountAppointmentsArgs
+}
+
+/**
+ * PatientCountOutputType without action
+ */
+export type PatientCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PatientCountOutputType
+   */
+  select?: Prisma.PatientCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PatientCountOutputType without action
+ */
+export type PatientCountOutputTypeCountAppointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AppointmentWhereInput
+}
 
 
 export type PatientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -431,6 +544,8 @@ export type PatientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   email?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  appointments?: boolean | Prisma.Patient$appointmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.PatientCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["patient"]>
 
 export type PatientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -467,10 +582,18 @@ export type PatientSelectScalar = {
 }
 
 export type PatientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "dateOfBirth" | "phone" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["patient"]>
+export type PatientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  appointments?: boolean | Prisma.Patient$appointmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.PatientCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type PatientIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PatientIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $PatientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Patient"
-  objects: {}
+  objects: {
+    appointments: Prisma.$AppointmentPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     firstName: string
@@ -874,6 +997,7 @@ readonly fields: PatientFieldRefs;
  */
 export interface Prisma__PatientClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  appointments<T extends Prisma.Patient$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Patient$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -928,6 +1052,10 @@ export type PatientFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
+  /**
    * Filter, which Patient to fetch.
    */
   where: Prisma.PatientWhereUniqueInput
@@ -946,6 +1074,10 @@ export type PatientFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
+  /**
    * Filter, which Patient to fetch.
    */
   where: Prisma.PatientWhereUniqueInput
@@ -963,6 +1095,10 @@ export type PatientFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Patient
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
   /**
    * Filter, which Patient to fetch.
    */
@@ -1012,6 +1148,10 @@ export type PatientFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
+  /**
    * Filter, which Patient to fetch.
    */
   where?: Prisma.PatientWhereInput
@@ -1059,6 +1199,10 @@ export type PatientFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Patient
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
   /**
    * Filter, which Patients to fetch.
    */
@@ -1108,6 +1252,10 @@ export type PatientCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
+  /**
    * The data needed to create a Patient.
    */
   data: Prisma.XOR<Prisma.PatientCreateInput, Prisma.PatientUncheckedCreateInput>
@@ -1155,6 +1303,10 @@ export type PatientUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Patient
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
   /**
    * The data needed to update a Patient.
    */
@@ -1222,6 +1374,10 @@ export type PatientUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
+  /**
    * The filter to search for the Patient to update in case it exists.
    */
   where: Prisma.PatientWhereUniqueInput
@@ -1248,6 +1404,10 @@ export type PatientDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
+  /**
    * Filter which Patient to delete.
    */
   where: Prisma.PatientWhereUniqueInput
@@ -1268,6 +1428,30 @@ export type PatientDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Patient.appointments
+ */
+export type Patient$appointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Appointment
+   */
+  select?: Prisma.AppointmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Appointment
+   */
+  omit?: Prisma.AppointmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AppointmentInclude<ExtArgs> | null
+  where?: Prisma.AppointmentWhereInput
+  orderBy?: Prisma.AppointmentOrderByWithRelationInput | Prisma.AppointmentOrderByWithRelationInput[]
+  cursor?: Prisma.AppointmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AppointmentScalarFieldEnum | Prisma.AppointmentScalarFieldEnum[]
+}
+
+/**
  * Patient without action
  */
 export type PatientDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1279,4 +1463,8 @@ export type PatientDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Patient
    */
   omit?: Prisma.PatientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
 }

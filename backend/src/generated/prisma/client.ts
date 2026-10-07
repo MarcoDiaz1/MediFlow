@@ -49,3 +49,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Patient = Prisma.PatientModel
+/**
+ * Model Appointment
+ * 
+ */
+export type Appointment = Prisma.AppointmentModel

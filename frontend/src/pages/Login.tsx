@@ -57,7 +57,7 @@ const Login = () => {
           >
             <div className="mb-4 w-full">
               <input
-                className=" appearance-none border-bottom border-black border-b-2  w-full py-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className=" p-4 appearance-none border-bottom border-black border-b-2  w-full py-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="username"
                 type="text"
                 placeholder="Email"
@@ -67,7 +67,7 @@ const Login = () => {
             </div>
             <div className="mb-6 w-full">
               <input
-                className=" appearance-none border-bottom border-black border-b-2  w-full py-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className=" p-4 appearance-none border-bottom border-black border-b-2  w-full py-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="password"
                 type="password"
                 placeholder="Password"

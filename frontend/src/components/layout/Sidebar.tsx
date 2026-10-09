@@ -3,14 +3,42 @@ import { MdDashboard, MdPermContactCalendar } from "react-icons/md";
 import { FaHospitalUser } from "react-icons/fa6";
 import { SiFiles } from "react-icons/si";
 import { IoSettings, IoLogOut } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const { logout } = useAuth();
 
+  const navigation = [
+    {
+      to: "/dashboard",
+      icon: <MdDashboard />,
+      label: "Dashboard",
+    },
+    {
+      to: "/patients",
+      icon: <FaHospitalUser />,
+      label: "Patients",
+    },
+    {
+      to: "/appointments",
+      icon: <MdPermContactCalendar />,
+      label: "Appointments",
+    },
+    {
+      to: "/documents",
+      icon: <SiFiles />,
+      label: "Documents",
+    },
+    {
+      to: "/settings",
+      icon: <IoSettings />,
+      label: "Settings",
+    },
+  ];
+
   return (
     <div className="w-[8%] h-screen text-white p-4 pt-[2vw] flex flex-col">
-
       {/* Logo */}
       <div className="flex items-center justify-center items-start mb-8 h-[20%]">
         <button className="flex h-[6vh] w-[3vw] items-center justify-center text-[#252422] text-lg font-bold bg-[#f2e8cf] rounded-lg cursor-pointer">
@@ -20,38 +48,25 @@ const Sidebar = () => {
 
       {/* Navigation */}
       <nav className="flex h-[50%] flex-col items-center">
-        <ul className="text-3xl">
-
-          <li className="mb-14">
-            <a href="#" className="hover:text-blue-500">
-              <MdDashboard className="text-3xl" />
-            </a>
-          </li>
-
-          <li className="mb-14">
-            <a href="#" className="hover:text-blue-500">
-              <FaHospitalUser className="text-3xl" />
-            </a>
-          </li>
-
-          <li className="mb-14">
-            <a href="#" className="hover:text-blue-500">
-              <MdPermContactCalendar className="text-3xl" />
-            </a>
-          </li>
-
-          <li className="mb-14">
-            <a href="#" className="hover:text-blue-500">
-              <SiFiles className="text-3xl" />
-            </a>
-          </li>
-
-          <li className="mb-14">
-            <a href="#" className="hover:text-blue-500">
-              <IoSettings className="text-3xl" />
-            </a>
-          </li>
-
+        <ul className="text-3xl flex flex-col gap-14">
+          {navigation.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                aria-label={item.label}
+                title={item.label}
+                className={({ isActive }) =>
+                  `w-12 h-12 flex items-center justify-center rounded-lg transition-all duration-200 ${
+                    isActive
+                      ? "text-blue-500 bg-white/10"
+                      : "text-white hover:text-blue-500 hover:bg-white/5"
+                  }`
+                }
+              >
+                {item.icon}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
 
@@ -67,7 +82,6 @@ const Sidebar = () => {
           <IoLogOut className="text-3xl" />
         </button>
       </div>
-
     </div>
   );
 };

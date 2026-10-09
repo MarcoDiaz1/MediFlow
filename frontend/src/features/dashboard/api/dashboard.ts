@@ -1,19 +1,4 @@
-import type { Appointment } from "../types";
-
-interface DashboardSummary {
-  totalPatients: number;
-  patientsLast7Days: number;
-  patientsPrevious7Days: number;
-  patientGrowth: number;
-  appointmentsToday: number;
-  totalAppointments: number;
-  pendingAppointments: Appointment[];
-
-  appointmentsThisWeek: {
-    date: string;
-    count: number;
-  }[];
-}
+import type {DashboardSummary } from "../types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

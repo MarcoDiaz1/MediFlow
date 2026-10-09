@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { getDashboardSummary } from "../api/dashboard";
-import TotalPatientsCard from "../components/dashboard/TotalPatientsCard";
-import TotalApptCard from "../components/dashboard/TotalApptCard";
-import TotalPendAppts from "../components/dashboard/TotalPendAppts";
-import Appointments from "../components/dashboard/ApptsCalendar";
-import AppointmentsChart from "../components/dashboard/AppointmentsChart";
-import type { Appointment } from "../types";
-import UpcomingAppointments from "../components/dashboard/UpcomingAppointments";
-
+import { getDashboardSummary } from "../features/dashboard/api/dashboard";
+import TotalPatientsCard from "../features/dashboard/components/TotalPatientsCard";
+import TotalApptCard from "../features/dashboard/components/TotalApptCard";
+import TotalPendAppts from "../features/dashboard/components/TotalPendAppts";
+import Appointments from "../features/dashboard/components/ApptsCalendar";
+import AppointmentsChart from "../features/dashboard/components/AppointmentsChart";
+import type { Appointment } from "../features/dashboard/types";
+import UpcomingAppointments from "../features/dashboard/components/UpcomingAppointments";
+import RecentActivity from "../features/dashboard/components/RecentActivity";
+import { mockActivities } from "../data/mockActivities";
+import TodayAppts from "../features/dashboard/components/TodayAppts";
+import AppointmentStatus from "../features/dashboard/components/AppointmentStatus";
+import { mockAppointmentStatus } from "../data/mockActivities";
 
 const Dashboard = () => {
   const [appointmentsThisWeek, setAppointmentsThisWeek] = React.useState<
@@ -17,7 +21,38 @@ const Dashboard = () => {
   const [patientGrowth, setPatientGrowth] = React.useState<number | null>(null);
   const [totalAppts, setTotalApptsments] = React.useState<number | null>(null);
   const [apptsToday, setApptsToday] = React.useState<number | null>(null);
-  const [pendingAppts, setPendingAppts] = React.useState<Appointment[] | null>(null);
+  const [pendingAppts, setPendingAppts] = React.useState<Appointment[] | null>(
+    null,
+  );
+  const appointments = [
+    {
+      id: 1,
+      date: new Date(2026, 9, 5),
+      scheduledAt: new Date(2026, 9, 5, 9, 0),
+      status: "confirmed",
+      time: "09:00",
+      patient: { firstName: "John", lastName: "Smith" },
+      reason: "Routine checkup",
+    },
+    {
+      id: 2,
+      date: new Date(2026, 9, 5),
+      scheduledAt: new Date(2026, 9, 5, 10, 30),
+      status: "confirmed",
+      time: "10:30",
+      patient: { firstName: "Maria", lastName: "Lopez" },
+      reason: "Follow-up consultation",
+    },
+    {
+      id: 3,
+      date: new Date(2026, 9, 6),
+      scheduledAt: new Date(2026, 9, 6, 13, 0),
+      status: "confirmed",
+      time: "13:00",
+      patient: { firstName: "James", lastName: "Brown" },
+      reason: "Annual examination",
+    },
+  ];
 
   useEffect(() => {
     const fetchTotalPatients = async () => {
@@ -39,7 +74,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center  rounded-x-lg rounded-b-lg bg-[#F6F0DF]">
+   
       <div className="w-full h-full flex flex-col p-[2vh_3vw] ">
         <div className="w-full h-auto flex">
           <div className="h-auto">
@@ -53,19 +88,25 @@ const Dashboard = () => {
                 appointmentsToday={apptsToday}
               />
               <TotalPendAppts
-                totalAppointments={totalAppts}
                 pendingAppointments={pendingAppts?.length || 0}
               />
             </div>
-            <div className="h-[35vh] w-auto  grid grid-cols-2 gap-4 pr-[2vw]">
+            <div className="h-[40vh] w-auto  grid grid-cols-2 gap-4 pr-[2vw]">
               <AppointmentsChart data={appointmentsThisWeek} />
               <UpcomingAppointments appointments={pendingAppts || []} />
             </div>
+            <div className="grid grid-cols-2 gap-4 pr-[2vw] mt-4">
+              <RecentActivity activities={mockActivities} />
+              <TodayAppts appointments={appointments} />
+              {/* Appointment Status will go here */}
+            </div>
           </div>
-          <Appointments />
+          <div className="w-[25%] rounded-[10px] p-3 overflow-hidden grid grid-rows-2 gap-2">
+            <Appointments appointments={appointments} />
+             <AppointmentStatus data={mockAppointmentStatus} />
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

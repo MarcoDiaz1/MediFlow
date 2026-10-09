@@ -77,8 +77,14 @@ export const getDashboardSummary = async (_req: Request, res: Response) => {
         where: {
           status: AppointmentStatus.SCHEDULED,
           scheduledAt: {
-            gte: now,
+            gte: new Date(),
           },
+        },
+        include: {
+          patient: true,
+        },
+        orderBy: {
+          scheduledAt: "asc",
         },
       }),
       prisma.appointment.findMany({

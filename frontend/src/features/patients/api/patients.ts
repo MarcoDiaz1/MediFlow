@@ -1,4 +1,4 @@
-import type { PatientsResponse, PatientSummary } from "../types";
+import type { PatientsResponse, PatientSummary, CreatePatientInput } from "../types";
 import type { PatientFormData } from "../components/PatientForm";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -18,13 +18,6 @@ export const getPatients = async (): Promise<PatientsResponse> => {
   return response.json();
 };
 
-export interface CreatePatientInput {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  phone: string;
-  email: string;
-}
 
 export const createPatient = async (
   patientData: CreatePatientInput,

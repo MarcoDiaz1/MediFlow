@@ -10,3 +10,11 @@ export interface PatientSummary {
 export interface PatientsResponse {
   patients: PatientSummary[];
 }
+
+export interface CreatePatientInput {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  phone: string;
+  email: string;
+}

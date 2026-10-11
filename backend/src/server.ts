@@ -4,6 +4,7 @@ import helmet from "helmet";
 import authRoutes from "./routes/auth.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
 import patientRoutes from "./routes/patients.routes";
+import appointmentsRoutes from "./routes/appointments.route";
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/patients", patientRoutes);
+app.use("/api/appointments", appointmentsRoutes);
+
 
 const PORT = 5000;
 

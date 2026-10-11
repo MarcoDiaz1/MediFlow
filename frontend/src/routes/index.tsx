@@ -7,6 +7,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Layout from "../components/layout/Layout";
 import Patients from "../pages/Patients";
 import PatientProfile from "../pages/PatientProfile";
+import Appointments from "../pages/Appointments";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
           {
             path: "/patients/:patientId",
             element: <PatientProfile />,
+          },
+          {
+             path: "/appointments",
+            element: <Appointments />,
           },
         ],
       },

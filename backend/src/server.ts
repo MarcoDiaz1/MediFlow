@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
 import patientRoutes from "./routes/patients.routes";
 import appointmentsRoutes from "./routes/appointments.route";
+import documentsRoutes from "./routes/documents.routes";
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/patients", patientRoutes);
 app.use("/api/appointments", appointmentsRoutes);
-
+app.use("/api/documents", documentsRoutes);
 
 const PORT = 5000;
 

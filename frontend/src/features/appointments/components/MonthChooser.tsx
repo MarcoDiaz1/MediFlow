@@ -42,7 +42,7 @@ const MonthChooser = ({
         <LuSquareChevronLeft className="text-xl" />
       </button>
 
-      <div className="min-w-[150px] text-center">
+      <div className="min-w-37.5 text-center">
         <h2 className="text-lg font-bold text-[#212529]">
           {view === "Day"
             ? format(currentDate, "d MMM yyyy")

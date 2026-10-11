@@ -8,6 +8,7 @@ import Layout from "../components/layout/Layout";
 import Patients from "../pages/Patients";
 import PatientProfile from "../pages/PatientProfile";
 import Appointments from "../pages/Appointments";
+import Documents from "../pages/Documents";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
           {
              path: "/appointments",
             element: <Appointments />,
+          },
+          {
+             path: "/documents",
+            element: <Documents />,
           },
         ],
       },

@@ -24,7 +24,7 @@ export const createPatient = async (
 ): Promise<PatientSummary> => {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/patients`, {
+  const response = await fetch(`${API_URL}/patients`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

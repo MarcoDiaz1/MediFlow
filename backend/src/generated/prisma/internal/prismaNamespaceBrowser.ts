@@ -53,7 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Patient: 'Patient',
-  Appointment: 'Appointment'
+  Appointment: 'Appointment',
+  Document: 'Document'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -109,6 +110,20 @@ export const AppointmentScalarFieldEnum = {
 } as const
 
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+export const DocumentScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  fileName: 'fileName',
+  cloudinaryPublicId: 'cloudinaryPublicId',
+  cloudinaryResourceType: 'cloudinaryResourceType',
+  documentCategory: 'documentCategory',
+  uploadDate: 'uploadDate',
+  description: 'description'
+} as const
+
+export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -11,3 +11,70 @@
 @theme {
   --font-cinzel: "Cinzel", sans-serif;
 }
+
+```css
+/* Mediflow appointment calendar */
+
+.mediflow-calendar {
+  --rdp-accent-color: #3c6e71;
+  --rdp-accent-background-color: #dcebe7;
+  --rdp-day_button-border-radius: 10px;
+  --rdp-selected-border: 2px solid #3c6e71;
+  --rdp-today-color: #3c6e71;
+
+  width: 100%;
+  margin: 0;
+  color: #212529;
+}
+
+.mediflow-calendar .rdp-month {
+  width: 100%;
+}
+
+.mediflow-calendar .rdp-month_grid {
+  width: 100%;
+}
+
+.mediflow-calendar .rdp-weekday {
+  color: #5b6268;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.mediflow-calendar .rdp-day_button {
+  font-size: 0.875rem;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.mediflow-calendar .rdp-day_button:hover {
+  background-color: #dcebe7;
+}
+
+.mediflow-calendar .appointment-day .rdp-day_button {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: #3c6e71;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.mediflow-calendar .rdp-selected .rdp-day_button {
+  background-color: #3c6e71;
+  color: #ffffff;
+}
+
+.mediflow-calendar .rdp-selected.appointment-day .rdp-day_button {
+  text-decoration-color: #ffffff;
+}
+
+.mediflow-calendar .rdp-today:not(.rdp-selected) .rdp-day_button {
+  color: #3c6e71;
+  font-weight: 800;
+}
+
+.mediflow-calendar .rdp-chevron {
+  fill: #3c6e71;
+}
+```

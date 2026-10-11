@@ -58,42 +58,48 @@ const RecentActivity = ({ activities }: { activities: Activity[] }) => {
   };
 
   return (
-    <div className="h-[20vh] p-4 bg-[#DCEBE7] rounded-lg overflow-y-scroll">
-      <h2 className="text-lg font-semibold mb-4">
-        Recent Activity
-      </h2>
+    <div className="h-[30vh] p-4 bg-[#F8F5ED]  rounded-lg overflow-y-scroll">
+      <div className="mb-4">
+        <h2 className="text-lg font-bold text-[#212529]">Recent Activity</h2>
+
+        <p className="mt-1 text-sm text-[#5B6268]">
+          Latest updates from your clinic
+        </p>
+      </div>
 
       {activities.length === 0 ? (
-        <p className="text-sm text-gray-600">
-          No recent activity.
-        </p>
+        <div className="flex flex-1 items-center justify-center rounded-xl border border-dashed border-[#D8D2C6] p-6">
+          <p className="text-center text-sm text-[#5B6268]">
+            No recent activity.
+          </p>
+        </div>
       ) : (
-        <div className="space-y-3  h-auto pr-2">
+        <ul className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-1">
           {activities.map((activity) => (
-            <div
+            <li
               key={activity.id}
-              className="flex items-center gap-3"
+              className="flex items-start gap-3 rounded-xl border border-[#E5E0D5] bg-white p-3 transition-colors hover:border-[#B8D0CB]"
             >
-              <div className="w-9 h-9 shrink-0 rounded-full bg-[#174A7E] text-white flex items-center justify-center">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#DCEBE7] text-[#31595C]">
                 {getActivityIcon(activity.type)}
               </div>
 
               <div className="min-w-0 flex-1">
-                <p className="font-semibold text-sm">
+                <p className="truncate text-sm font-semibold text-[#212529]">
                   {activity.patientName}
                 </p>
 
-                <p className="text-sm text-gray-700">
+                <p className="mt-0.5 text-sm text-[#5B6268]">
                   {activity.description}
                 </p>
 
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="mt-1 text-xs text-[#7A8085]">
                   {formatRelativeTime(activity.createdAt)}
                 </p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

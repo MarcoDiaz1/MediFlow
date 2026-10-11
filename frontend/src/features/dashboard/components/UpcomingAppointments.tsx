@@ -1,5 +1,7 @@
+
 import React from "react";
 import type { Appointment } from "../types";
+import Card from "../../../components/ui/card";
 
 const UpcomingAppointments = ({
   appointments,
@@ -40,49 +42,68 @@ const UpcomingAppointments = ({
   };
 
   return (
-    <div className="h-auto overflow-y-auto p-2 bg-[#DCEBE7] rounded-lg">
-      <h2 className="text-lg font-semibold mb-4">
-        Upcoming Appointments
-      </h2>
+    <Card additionalClasses="w-full h-full min-h-0 bg-[#F8F5ED] border border-[#E5E0D5]">
+      <div className="flex h-full min-h-0 flex-col w-full">
+        <div className="mb-4">
+          <h2 className="text-lg font-bold text-[#212529]">
+            Upcoming Appointments
+          </h2>
 
-      {appointments.length === 0 ? (
-        <p className="text-sm text-gray-600">
-          No upcoming appointments.
-        </p>
-      ) : (
-        <ul className="space-y-2">
-          {appointments.map((appointment) => (
-            <li
-              key={appointment.id}
-              className="flex gap-3 bg-[#a2d2ff] p-3 rounded-lg"
-            >
-              {/* Time */}
-              <div className="w-16 shrink-0">
-                <p className="font-semibold text-sm">
-                  {formatTime(appointment.scheduledAt)}
-                </p>
-              </div>
+          <p className="mt-1 text-sm text-[#5B6268]">
+            Your next scheduled visits
+          </p>
+        </div>
 
-              {/* Appointment information */}
-              <div className="min-w-0">
-                <p className="font-semibold">
-                  {appointment.patient.firstName}{" "}
-                  {appointment.patient.lastName}
-                </p>
+        {appointments.length === 0 ? (
+          <div className="flex flex-1 items-center justify-center rounded-xl border border-dashed border-[#D8D2C6] p-6">
+            <p className="text-center text-sm text-[#5B6268]">
+              No upcoming appointments.
+            </p>
+          </div>
+        ) : (
+          <ul className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-1">
+            {appointments.map((appointment) => (
+              <li
+                key={appointment.id}
+                className="flex gap-3 rounded-xl border border-[#E5E0D5] bg-white p-3 transition-colors hover:border-[#B8D0CB]"
+              >
+                {/* Appointment time */}
+                <div className="flex w-[4.5rem] shrink-0 flex-col items-center justify-center rounded-lg bg-[#DCEBE7] px-2 py-3">
+                  <span className="text-sm font-bold text-[#31595C]">
+                    {formatTime(appointment.scheduledAt)}
+                  </span>
 
-                <p className="text-sm text-gray-700">
-                  {appointment.reason}
-                </p>
+                  <span className="mt-1 text-xs font-medium text-[#5B6268]">
+                    {getDayLabel(appointment.scheduledAt)}
+                  </span>
+                </div>
 
-                <p className="text-xs text-gray-600 mt-1">
-                  {getDayLabel(appointment.scheduledAt)}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+                {/* Appointment information */}
+                <div className="min-w-0 flex-1 self-center">
+                  <p className="truncate font-semibold text-[#212529]">
+                    {appointment.patient.firstName}{" "}
+                    {appointment.patient.lastName}
+                  </p>
+
+                  <p className="mt-1 line-clamp-2 text-sm text-[#5B6268]">
+                    {appointment.reason || "General consultation"}
+                  </p>
+                </div>
+
+                {/* Status indicator */}
+                <div className="flex shrink-0 items-start pt-1">
+                  <span
+                    className="h-2.5 w-2.5 rounded-full bg-[#3C6E71]"
+                    title="Scheduled"
+                    aria-label="Scheduled"
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </Card>
   );
 };
 

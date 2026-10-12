@@ -3,7 +3,7 @@ import { MdDashboard, MdPermContactCalendar } from "react-icons/md";
 import { FaHospitalUser } from "react-icons/fa6";
 import { SiFiles } from "react-icons/si";
 import { IoSettings, IoLogOut } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = () => {
@@ -36,12 +36,17 @@ const Sidebar = () => {
       label: "Settings",
     },
   ];
+  
+  const navigate = useNavigate();
 
   return (
     <div className="w-[8%] h-screen text-white p-4 pt-[2vw] flex flex-col">
       {/* Logo */}
-      <div className="flex items-center justify-center items-start mb-8 h-[20%]">
-        <button className="flex h-[6vh] w-[3vw] items-center justify-center text-[#252422] text-lg font-bold bg-[#f2e8cf] rounded-lg cursor-pointer">
+      <div className="flex justify-center items-start mb-8 h-[20%]">
+        <button
+          className="flex h-[6vh] w-[3vw] items-center justify-center text-[#252422] text-lg font-bold bg-[#f2e8cf] rounded-lg cursor-pointer"
+          onClick={() => navigate("/dashboard")}
+        >
           <FaHospital className="text-[2vw]" />
         </button>
       </div>

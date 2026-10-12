@@ -116,8 +116,15 @@ export const getDashboardSummary = async (_req: Request, res: Response) => {
         );
       }).length;
 
+      const isoDate = [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2, "0"),
+        String(date.getDate()).padStart(2, "0"),
+      ].join("-");
+
       return {
-        date: date.toLocaleDateString("en-US", {
+        date: isoDate,
+        dayLabel: date.toLocaleDateString("en-US", {
           weekday: "short",
         }),
         count,

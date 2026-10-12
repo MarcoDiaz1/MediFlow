@@ -26,7 +26,7 @@ const TodayAppts = ({
 
   return (
     <Card additionalClasses="w-full h-full min-h-0 bg-[#F8F5ED] border border-[#E5E0D5]">
-      <div className="flex h-full min-h-0 flex-col">
+      <div className="flex h-full min-h-0 flex-col w-full">
         <div className="mb-4">
           <h2 className="text-lg font-bold text-[#212529]">
             Today's Schedule

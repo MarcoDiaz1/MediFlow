@@ -1,7 +1,7 @@
-
 import { useMemo, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
+
 import type { Appointment } from "../types";
 import Card from "../../../components/ui/card";
 
@@ -10,9 +10,7 @@ const AppointmentCalendar = ({
 }: {
   appointments: Appointment[];
 }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-    new Date(),
-  );
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const appointmentDates = useMemo(
     () =>
@@ -21,6 +19,18 @@ const AppointmentCalendar = ({
         .filter((date) => !Number.isNaN(date.getTime())),
     [appointments],
   );
+
+  const selectedAppointments = useMemo(() => {
+    return appointments.filter((appointment) => {
+      const date = new Date(appointment.scheduledAt);
+
+      return (
+        date.getFullYear() === selectedDate.getFullYear() &&
+        date.getMonth() === selectedDate.getMonth() &&
+        date.getDate() === selectedDate.getDate()
+      );
+    });
+  }, [appointments, selectedDate]);
 
   return (
     <Card additionalClasses="flex h-full min-h-0 w-full flex-col overflow-hidden border border-[#E5E0D5] bg-[#F8F5ED]">
@@ -38,7 +48,9 @@ const AppointmentCalendar = ({
         <DayPicker
           mode="single"
           selected={selectedDate}
-          onSelect={setSelectedDate}
+          onSelect={(date) => {
+            if (date) setSelectedDate(date);
+          }}
           modifiers={{
             hasAppointment: appointmentDates,
           }}
@@ -50,11 +62,29 @@ const AppointmentCalendar = ({
         />
       </div>
 
-      <div className="mt-2 flex items-center justify-center gap-2 border-t border-[#E5E0D5] pt-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3C6E71]" />
-        <span className="text-xs text-[#5B6268]">
-          Scheduled appointments
-        </span>
+      <div className="mt-2 border-t border-[#E5E0D5] pt-3">
+        <p className="text-center text-sm font-semibold text-[#212529]">
+          {selectedDate.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </p>
+
+        <p className="mt-1 text-center text-xs text-[#5B6268]">
+          {selectedAppointments.length === 0
+            ? "No appointments scheduled"
+            : `${selectedAppointments.length} appointment${
+                selectedAppointments.length === 1 ? "" : "s"
+              } scheduled`}
+        </p>
+
+        <div className="mt-2 flex items-center justify-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#3C6E71]" />
+          <span className="text-xs text-[#5B6268]">
+            Scheduled appointments
+          </span>
+        </div>
       </div>
     </Card>
   );

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import ApptsTopbar from "../features/appointments/components/ApptsTopbar";
 import AppointmentsCalendar from "../features/appointments/components/AppointmentsCalendar";
-import { createAppointment, getAppointments } from "../features/appointments/api/appointments";
+import {
+  createAppointment,
+  getAppointments,
+} from "../features/appointments/api/appointments";
 import type {
   CalendarView,
   FullCalendarView,
@@ -9,20 +12,21 @@ import type {
   CreateAppointmentPayload,
 } from "../features/appointments/types";
 import AddAppointmentModal from "../features/appointments/components/AddAppointmentModal";
+import { useSearchParams } from "react-router-dom";
 
 const Appointments = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState<CalendarView>("Week");
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
 
-const calendarViews: Record<CalendarView, FullCalendarView> = {
-  Month: "dayGridMonth",
-  Week: "timeGridWeek",
-  Day: "timeGridDay",
-  List: "listWeek",
-};
+  const calendarViews: Record<CalendarView, FullCalendarView> = {
+    Month: "dayGridMonth",
+    Week: "timeGridWeek",
+    Day: "timeGridDay",
+    List: "listWeek",
+  };
 
   const calendarView = calendarViews[view];
 
@@ -53,6 +57,25 @@ const calendarViews: Record<CalendarView, FullCalendarView> = {
 
     loadAppointments();
   }, []);
+
+  const [currentDate, setCurrentDate] = useState(() => {
+    const dateParam = searchParams.get("date");
+
+    if (dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam)) {
+      const [year, month, day] = dateParam.split("-").map(Number);
+      const parsedDate = new Date(year, month - 1, day);
+
+      if (
+        parsedDate.getFullYear() === year &&
+        parsedDate.getMonth() === month - 1 &&
+        parsedDate.getDate() === day
+      ) {
+        return parsedDate;
+      }
+    }
+
+    return new Date();
+  });
 
   return (
     <div className="flex h-full w-full flex-col gap-4 p-[2vh_3vw]">

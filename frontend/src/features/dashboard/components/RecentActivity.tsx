@@ -1,5 +1,3 @@
-import React from "react";
-import type { Activity } from "../types";
 import {
   FaUserPlus,
   FaCalendarCheck,
@@ -7,21 +5,33 @@ import {
   FaCalendarXmark,
 } from "react-icons/fa6";
 
-const RecentActivity = ({ activities }: { activities: Activity[] }) => {
+import type { Activity } from "../types";
+import Card from "../../../components/ui/card";
+
+const RecentActivity = ({
+  activities,
+}: {
+  activities: Activity[];
+}) => {
   const formatRelativeTime = (date: string) => {
-    const now = new Date();
     const activityDate = new Date(date);
+    const now = new Date();
+
+    if (Number.isNaN(activityDate.getTime())) {
+      return "Unknown date";
+    }
 
     const difference = now.getTime() - activityDate.getTime();
 
-    const seconds = Math.floor(difference / 1000);
-    const minutes = Math.floor(seconds / 60);
+    if (difference < 0) {
+      return "Just now";
+    }
+
+    const minutes = Math.floor(difference / 60_000);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
 
-    if (seconds < 60) {
-      return "Just now";
-    }
+    if (minutes < 1) return "Just now";
 
     if (minutes < 60) {
       return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
@@ -31,11 +41,18 @@ const RecentActivity = ({ activities }: { activities: Activity[] }) => {
       return `${hours} hour${hours === 1 ? "" : "s"} ago`;
     }
 
-    if (days === 1) {
-      return "Yesterday";
-    }
+    if (days === 1) return "Yesterday";
 
-    return `${days} days ago`;
+    if (days < 7) return `${days} days ago`;
+
+    return activityDate.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year:
+        activityDate.getFullYear() !== now.getFullYear()
+          ? "numeric"
+          : undefined,
+    });
   };
 
   const getActivityIcon = (type: Activity["type"]) => {
@@ -58,9 +75,11 @@ const RecentActivity = ({ activities }: { activities: Activity[] }) => {
   };
 
   return (
-    <div className="h-[30vh] p-4 bg-[#F8F5ED]  rounded-lg overflow-y-scroll">
-      <div className="mb-4">
-        <h2 className="text-lg font-bold text-[#212529]">Recent Activity</h2>
+    <Card additionalClasses="flex h-[30vh] min-h-[260px] w-full flex-col overflow-hidden border border-[#E5E0D5] bg-[#F8F5ED]">
+      <div className="mb-4 shrink-0">
+        <h2 className="text-lg font-bold text-[#212529]">
+          Recent Activity
+        </h2>
 
         <p className="mt-1 text-sm text-[#5B6268]">
           Latest updates from your clinic
@@ -80,7 +99,10 @@ const RecentActivity = ({ activities }: { activities: Activity[] }) => {
               key={activity.id}
               className="flex items-start gap-3 rounded-xl border border-[#E5E0D5] bg-white p-3 transition-colors hover:border-[#B8D0CB]"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#DCEBE7] text-[#31595C]">
+              <div
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#DCEBE7] text-[#31595C]"
+                aria-hidden="true"
+              >
                 {getActivityIcon(activity.type)}
               </div>
 
@@ -101,7 +123,7 @@ const RecentActivity = ({ activities }: { activities: Activity[] }) => {
           ))}
         </ul>
       )}
-    </div>
+    </Card>
   );
 };
 

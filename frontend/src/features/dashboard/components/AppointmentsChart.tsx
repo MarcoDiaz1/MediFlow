@@ -1,4 +1,3 @@
-
 import {
   BarChart,
   Bar,
@@ -10,8 +9,11 @@ import {
 } from "recharts";
 import Card from "../../../components/ui/card";
 
+import { useNavigate } from "react-router-dom";
+
 interface AppointmentData {
-  date: string;
+  date: string; // "2026-10-11"
+  dayLabel: string; // "Sun"
   count: number;
 }
 
@@ -20,6 +22,16 @@ interface AppointmentsChartProps {
 }
 
 const AppointmentsChart = ({ data }: AppointmentsChartProps) => {
+  const navigate = useNavigate();
+
+  const handleBarClick = (entry: { payload?: AppointmentData }) => {
+    const date = entry.payload?.date;
+
+    if (!date) return;
+
+    navigate(`/appointments?date=${encodeURIComponent(date)}`);
+  };
+
   return (
     <Card additionalClasses="w-full h-full min-h-0 bg-[#F8F5ED] border border-[#E5E0D5]">
       <div className="flex h-full w-full min-h-0 flex-col">
@@ -46,7 +58,7 @@ const AppointmentsChart = ({ data }: AppointmentsChartProps) => {
               />
 
               <XAxis
-                dataKey="date"
+                dataKey="dayLabel"
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: "#5B6268", fontSize: 12 }}
@@ -88,6 +100,8 @@ const AppointmentsChart = ({ data }: AppointmentsChartProps) => {
                 fill="#3C6E71"
                 radius={[6, 6, 0, 0]}
                 maxBarSize={42}
+                cursor="pointer"
+                onClick={(entry) => handleBarClick(entry)}
               />
             </BarChart>
           </ResponsiveContainer>

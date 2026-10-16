@@ -5,6 +5,8 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(
@@ -17,7 +19,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const fetchCurrentUser = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/me", {
+        const response = await fetch(`${API_URL}/auth/me`, {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },
@@ -49,7 +51,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

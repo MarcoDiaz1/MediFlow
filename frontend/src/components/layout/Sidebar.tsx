@@ -4,7 +4,7 @@ import { FaHospitalUser } from "react-icons/fa6";
 import { SiFiles } from "react-icons/si";
 import { IoSettings, IoLogOut } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 
 const Sidebar = () => {
   const { logout } = useAuth();

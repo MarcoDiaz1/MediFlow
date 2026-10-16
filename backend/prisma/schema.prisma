@@ -19,6 +19,10 @@ model User {
   name      String
   email     String   @unique
   password  String
+
+  clinicId  Int?
+  clinic    Clinic?  @relation(fields: [clinicId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -30,8 +34,13 @@ model Patient {
   dateOfBirth  DateTime?
   phone        String?
   email        String?       @unique
+
+  clinicId     Int?
+  clinic       Clinic?       @relation(fields: [clinicId], references: [id])
+
   appointments Appointment[]
   documents    Document[]
+
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 }
@@ -62,4 +71,19 @@ model Document {
   patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   @@index([patientId])
+}
+
+model Clinic {
+  id          Int      @id @default(autoincrement())
+  name        String
+  phone       String?
+  email       String?
+  address     String?
+  description String?
+
+  users       User[]
+  patients    Patient[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

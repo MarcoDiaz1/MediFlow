@@ -400,7 +400,8 @@ export const ModelName = {
   User: 'User',
   Patient: 'Patient',
   Appointment: 'Appointment',
-  Document: 'Document'
+  Document: 'Document',
+  Clinic: 'Clinic'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "patient" | "appointment" | "document"
+    modelProps: "user" | "patient" | "appointment" | "document" | "clinic"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -716,6 +717,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Clinic: {
+      payload: Prisma.$ClinicPayload<ExtArgs>
+      fields: Prisma.ClinicFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClinicFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClinicFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>
+        }
+        findFirst: {
+          args: Prisma.ClinicFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClinicFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>
+        }
+        findMany: {
+          args: Prisma.ClinicFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>[]
+        }
+        create: {
+          args: Prisma.ClinicCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>
+        }
+        createMany: {
+          args: Prisma.ClinicCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClinicCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>[]
+        }
+        delete: {
+          args: Prisma.ClinicDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>
+        }
+        update: {
+          args: Prisma.ClinicUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>
+        }
+        deleteMany: {
+          args: Prisma.ClinicDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClinicUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClinicUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>[]
+        }
+        upsert: {
+          args: Prisma.ClinicUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicPayload>
+        }
+        aggregate: {
+          args: Prisma.ClinicAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClinic>
+        }
+        groupBy: {
+          args: Prisma.ClinicGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClinicGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClinicCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClinicCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -760,6 +835,7 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -774,6 +850,7 @@ export const PatientScalarFieldEnum = {
   dateOfBirth: 'dateOfBirth',
   phone: 'phone',
   email: 'email',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -806,6 +883,20 @@ export const DocumentScalarFieldEnum = {
 } as const
 
 export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+export const ClinicScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClinicScalarFieldEnum = (typeof ClinicScalarFieldEnum)[keyof typeof ClinicScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1062,6 +1153,7 @@ export type GlobalOmitConfig = {
   patient?: Prisma.PatientOmit
   appointment?: Prisma.AppointmentOmit
   document?: Prisma.DocumentOmit
+  clinic?: Prisma.ClinicOmit
 }
 
 /* Types for Logging */

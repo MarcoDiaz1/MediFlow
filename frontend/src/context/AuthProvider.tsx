@@ -1,27 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  createdAt?: string;
-}
-
-interface AuthContextType {
-  user: User | null;
-  token: string | null;
-  loading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import { useEffect, useState, type ReactNode } from "react";
+import { AuthContext, type User } from "./AuthContext";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -30,28 +8,20 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token")
+    localStorage.getItem("token"),
   );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
 
-    if (!storedToken) {
-      setLoading(false);
-      return;
-    }
-
     const fetchCurrentUser = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/auth/me",
-          {
-            headers: {
-              Authorization: `Bearer ${storedToken}`,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:5000/api/auth/me", {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
 
         if (!response.ok) {
           localStorage.removeItem("token");
@@ -77,24 +47,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     fetchCurrentUser();
   }, []);
 
-  const login = async (
-    email: string,
-    password: string
-  ): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
       const data = await response.json();
 
@@ -114,6 +78,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const updateUser = (updatedUser: User) => {
+    setUser(updatedUser);
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
@@ -127,6 +95,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         token,
         loading,
         login,
+        updateUser,
         logout,
       }}
     >
@@ -135,14 +104,3 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error(
-      "useAuth must be used inside an AuthProvider"
-    );
-  }
-
-  return context;
-};

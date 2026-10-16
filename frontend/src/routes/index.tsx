@@ -9,6 +9,7 @@ import Patients from "../pages/Patients";
 import PatientProfile from "../pages/PatientProfile";
 import Appointments from "../pages/Appointments";
 import Documents from "../pages/Documents";
+import Settings from "../pages/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
           {
              path: "/documents",
             element: <Documents />,
+          },
+          {
+             path: "/settings",
+            element: <Settings />,
           },
         ],
       },

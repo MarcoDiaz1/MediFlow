@@ -1,5 +1,5 @@
 import { FaUserAlt } from "react-icons/fa";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 
 const TopBar = () => {
   const { user } = useAuth();

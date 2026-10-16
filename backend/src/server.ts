@@ -6,6 +6,7 @@ import dashboardRoutes from "./routes/dashboard.routes";
 import patientRoutes from "./routes/patients.routes";
 import appointmentsRoutes from "./routes/appointments.route";
 import documentsRoutes from "./routes/documents.routes";
+import clinicRoutes from "./routes/clinic.routes";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/patients", patientRoutes);
 app.use("/api/appointments", appointmentsRoutes);
 app.use("/api/documents", documentsRoutes);
+app.use("/api/clinic", clinicRoutes);
 
 const PORT = 5000;
 

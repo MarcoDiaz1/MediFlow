@@ -1,5 +1,3 @@
-
-import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import type { AppointmentStatusData } from "../types";
 import Card from "../../../components/ui/card";
